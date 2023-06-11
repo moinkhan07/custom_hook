@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import UseFetch from './components/UseFetch';
 
 function App() {
+ 
+  const data = UseFetch("https://hub.dummyapis.com/employee?noofRecords=5&idStarts=1001")
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Header />
+     {
+      data.map((el,i)=>{
+         return(
+         <div key={i} className='employee'>
+          <button>{el.id}</button>
+          <br/>
+          <img src={el.imageUrl} />
+          <h2>{el.firstName} {el.lastName}</h2>
+         </div>
+         )
+      })
+     }
     </div>
   );
 }
